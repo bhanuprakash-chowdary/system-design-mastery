@@ -77,7 +77,7 @@ To get the maximum ROI from this repository, follow this strict revision schedul
 
 _(Link these to the markdown files in your repository once you create them!)_
 
-*   [**Day 1: Networking & Load Balancing**](https://www.google.com/search?q=./day-01-networking.md) (TCP/UDP, DNS, L4/L7 Load Balancers)
+*   [**Day 1: Networking & Load Balancing**](/day-01-networking.md) (TCP/UDP, DNS, L4/L7 Load Balancers)
     
 *   [**Day 2: Databases**](https://www.google.com/search?q=./day-02-databases.md) (B+ Trees, ACID, Normalization vs. Denormalization)
     
