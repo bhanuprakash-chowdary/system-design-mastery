@@ -79,23 +79,23 @@ _(Link these to the markdown files in your repository once you create them!)_
 
 *   [**Day 1: Networking & Load Balancing**](/day-01-networking.md) (TCP/UDP, DNS, L4/L7 Load Balancers)
     
-*   [**Day 2: Databases**](https://www.google.com/search?q=./day-02-databases.md) (B+ Trees, ACID, Normalization vs. Denormalization)
+*   [**Day 2: Databases**](/day-02-databases.md) (B+ Trees, ACID, Normalization vs. Denormalization)
     
-*   [**Day 3: Database Scaling**](https://www.google.com/search?q=./day-03-database-scaling.md) (Replication, Sharding, CQRS, CAP Theorem)
+*   [**Day 3: Database Scaling**](/day-03-database-scaling.md) (Replication, Sharding, CQRS, CAP Theorem)
     
-*   [**Day 4: Caching Systems**](https://www.google.com/search?q=./day-04-caching.md) (Strategies, LRU Eviction, Redis Architecture)
+*   [**Day 4: Caching Systems**](/day-04-caching.md) (Strategies, LRU Eviction, Redis Architecture)
     
-*   [**Day 5: Message Queues & EDA**](https://www.google.com/search?q=./day-05-message-queues.md) (Async Design, RabbitMQ, Apache Kafka)
+*   [**Day 5: Message Queues & EDA**](/day-05-message-queues.md) (Async Design, RabbitMQ, Apache Kafka)
     
-*   [**Day 6: Microservices Architecture**](https://www.google.com/search?q=./day-06-microservices.md) (Monolith vs. Micro, API Gateways, Service Discovery, gRPC)
+*   [**Day 6: Microservices Architecture**](/day-06-microservices.md) (Monolith vs. Micro, API Gateways, Service Discovery, gRPC)
     
-*   [**Day 7: Resilience & Transactions**](https://www.google.com/search?q=./day-07-resilience-transactions.md) (Circuit Breakers, Bulkheads, Saga Pattern, 2PC)
+*   [**Day 7: Resilience & Transactions**](/day-07-resilience-transactions.md) (Circuit Breakers, Bulkheads, Saga Pattern, 2PC)
     
-*   [**Day 8: Deployment & Orchestration**](https://www.google.com/search?q=./day-08-deployment.md) (Containerization/Docker, Kubernetes, CI/CD)
+*   [**Day 8: Deployment & Orchestration**](/day-08-deployment.md) (Containerization/Docker, Kubernetes, CI/CD)
     
-*   [**Day 9: Observability & Security**](https://www.google.com/search?q=./day-09-observability-security.md) (Metrics/Logs/Tracing, JWTs, Rate Limiting)
+*   [**Day 9: Observability & Security**](/day-09-observability-security.md) (Metrics/Logs/Tracing, JWTs, Rate Limiting)
     
-*   [**Day 10: The Interview Blueprint**](https://www.google.com/search?q=./day-10-interview-blueprint.md) (The 5-Step Framework & Capacity Math)
+*   [**Day 10: The Interview Blueprint**](/day-10-interview-blueprint.md) (The 5-Step Framework & Capacity Math)
     
 
 > _"Amateurs practice until they get it right. Professionals practice until they can't get it wrong."_
