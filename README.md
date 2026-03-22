@@ -1,102 +1,101 @@
 # system-design-mastery
-Day 2: Databases (Internals, ACID, & Optimization)
-==================================================
+🏗️ System Design & Backend Engineering: Master Revision Guide
+==============================================================
 
-Topic 2.1: Database Storage Internals (B+ Trees)
+Welcome to the **Master Revision Document**.
+
+This repository is not a textbook for first-time learning. It is a highly compressed, strategically layered **"Second Brain"** designed specifically for long-term memory retention and Senior/Staff-level FAANG interview preparation.
+
+Most engineers fail System Design interviews because they try to memorize diagrams. This repository forces you to memorize **Trade-offs, Internals, and Bottlenecks**.
+
+🧠 The "Layered Revision" Framework
+-----------------------------------
+
+Every topic in this repository is strictly divided into three distinct layers. This is based on the science of spaced repetition and active recall. **Do not read all three layers at once.**
+
+### 🟢 Layer 1: Core Recall (The "What")
+
+*   **Purpose:** Fast intuition, vocabulary mapping, and mental models.
+    
+*   **When to use:** Daily quick-scans on your commute or right before bed.
+    
+*   **Goal:** If an interviewer asks "What is Kafka?", you should be able to recite Layer 1 from memory in under 15 seconds.
+    
+
+### 🟡 Layer 2: Deep Dive (The "How" & "Why")
+
+*   **Purpose:** Understanding the physical hardware limits, the internal algorithms (like B+ Trees or LRU), and the real-world trade-offs.
+    
+*   **When to use:** Dedicated study sessions where you have time to draw out the architecture on a piece of paper.
+    
+*   **Goal:** To defend your architectural choices. (e.g., "I chose Cassandra over Postgres _because_...")
+    
+
+### 🔴 Layer 3: Interview Mastery (The "Traps")
+
+*   **Purpose:** Surviving the deep-dive phase of a FAANG interview.
+    
+*   **When to use:** 2 to 4 weeks before your actual interview.
+    
+*   **Goal:** To proactively identify Single Points of Failure (SPOFs), avoid common junior-engineer traps, and physically steer the interview conversation.
+    
+
+📅 The Execution Protocol (How to use this repo)
 ------------------------------------------------
 
-### Layer 1: Core Recall
+To get the maximum ROI from this repository, follow this strict revision schedule:
 
-*   **Intuition:** The library's alphabetical index card catalog. Instead of searching every book on every shelf (a Full Table Scan), you jump straight to the exact row you need.
-    
-*   **Why it exists (Problem Solved):** Searching an unsorted hard drive for one record out of 1 billion takes minutes. We need to find data in milliseconds ($O(\\log N)$ time).
-    
-*   **Core Idea:** Relational databases don't store data randomly; they maintain a mathematically balanced tree structure on the hard drive.
-    
-*   **Key Terms:** B+ Tree, Node/Page, Leaf Node, Full Table Scan, $O(\\log N)$ Time Complexity.
-    
+### Phase 1: The Breadth Pass (Week 1)
 
-### Layer 2: Deep Dive
-
-*   **Key Internals:** \* A **B+ Tree** has a Root, Branches, and Leaves.
+*   **Action:** Read **ONLY Layer 1** for all 10 days.
     
-    *   The **Leaves** contain the actual database rows (or pointers to them).
-        
-    *   _The Superpower:_ All Leaf nodes are connected via a **Doubly Linked List**. This makes Range Queries (WHERE price BETWEEN 10 AND 50) incredibly fast. Once it finds 10, it just walks sideways down the list.
-        
-*   **Real-World Usage:** The default storage and indexing engine for almost all Relational Databases (Postgres, MySQL, Oracle).
+*   **Rule:** Do not look at Layer 2 or Layer 3.
     
-*   **Trade-offs:** Reads are lightning fast. Writes are slower. Every time you INSERT, the database has to physically rebalance the tree on the hard drive to keep it perfectly sorted.
+*   **Objective:** Build a massive, high-level mental map. You need to know that _Kafka_ connects to _Microservices_, which connect to _Databases_, which are protected by _Caches_.
     
 
-### Layer 3: Interview Mastery
+### Phase 2: The Depth Pass (Weeks 2-3)
 
-*   **Common Mistakes:** "Indexing every column just to be safe." Every index creates a _new_ hidden B+ Tree on the disk. If you index 10 columns, every INSERT statement has to update 10 different trees, completely destroying your write performance.
+*   **Action:** Read **Layer 1 and Layer 2**.
     
-*   **Interview Pointers:** If an interviewer asks, "Why is finding a specific user by ID fast, but finding all users created last week slow?", the answer is that the table is clustered/sorted by ID, not by date. You must explicitly create a Secondary Index on the date column.
+*   **Rule:** After reading a topic, close the document. Force yourself to explain the "Trade-offs" out loud to an empty room. If you can't explain it simply, you don't understand it yet.
     
-
-Topic 2.2: ACID Transactions & The WAL
---------------------------------------
-
-### Layer 1: Core Recall
-
-*   **Intuition:** A bank transfer. If I send you $100, my account must go down by $100 AND your account must go up by $100. If the power goes out in between, the entire transaction must be cancelled. All or nothing.
-    
-*   **Why it exists (Problem Solved):** Hardware fails. Software crashes. Databases must guarantee mathematical correctness even if the server physically catches fire mid-query.
-    
-*   **Core Idea:** A strict set of rules (ACID) that relational databases follow to guarantee data integrity.
-    
-*   **Key Terms:** Atomicity (All or nothing), Consistency (Valid data only), Isolation (Concurrent queries don't step on each other), Durability (Saved permanently), Write-Ahead Log (WAL).
+*   **Objective:** Connect the vocabulary to physical server hardware and network limitations.
     
 
-### Layer 2: Deep Dive
+### Phase 3: The Interview Simulation (Month 1+)
 
-*   **Key Internals (The WAL):** How does a database survive a power outage mid-write? Before Postgres actually updates the complex B+ Tree, it writes a simple text string describing the change (e.g., "Add $100 to Bob") to a purely sequential, append-only file on disk called the **Write-Ahead Log (WAL)**. Sequential disk writes are blazing fast. If the DB crashes, upon reboot, it reads the WAL and finishes applying the changes.
+*   **Action:** Read **Layer 3**.
     
-*   **Real-World Usage:** Financial systems, billing engines, inventory management.
+*   **Rule:** Open a blank whiteboard (or piece of paper). Pick a random topic (e.g., "Design an API Gateway"). Try to draw the internals. Look at the "Common Mistakes" section and ask yourself: _"Did I just make that mistake on my whiteboard?"_
     
-*   **Trade-offs:** Guaranteeing ACID properties requires locking rows and extensive disk I/O, which makes Relational Databases very difficult to scale horizontally (shard) across multiple servers.
-    
-
-### Layer 3: Interview Mastery
-
-*   **Common Mistakes:** Assuming NoSQL databases like MongoDB or Cassandra are fully ACID compliant by default. (Most are fundamentally BASE—Basically Available, Soft state, Eventual consistency).
-    
-*   **Interview Pointers:** Be ready to explain the "I" in ACID (Isolation). If two users buy the last concert ticket at the exact same millisecond, the database uses "Row-Level Locks" to force one transaction to wait in line behind the other, preventing a double-booking race condition.
+*   **Objective:** Transition from "knowing the tech" to "communicating the tech under pressure."
     
 
-Topic 2.3: Normalization vs. Denormalization
---------------------------------------------
+🗂️ Table of Contents (The 10-Day Curriculum)
+---------------------------------------------
 
-### Layer 1: Core Recall
+_(Link these to the markdown files in your repository once you create them!)_
 
-*   **Intuition:** \* **Normalization:** Storing a fact exactly once. (e.g., Storing the company name in one companies table, and linking to it with an ID).
+*   [**Day 1: Networking & Load Balancing**](https://www.google.com/search?q=./day-01-networking.md) (TCP/UDP, DNS, L4/L7 Load Balancers)
     
-    *   **Denormalization:** Copying facts everywhere for speed. (e.g., Storing the company name directly inside the users table next to the user's name).
-        
-*   **Why it exists (Problem Solved):** CPU-heavy JOIN operations become the biggest bottleneck in a massive database.
+*   [**Day 2: Databases**](https://www.google.com/search?q=./day-02-databases.md) (B+ Trees, ACID, Normalization vs. Denormalization)
     
-*   **Core Idea:** Optimize for writes (Normalization) vs. optimize for reads (Denormalization).
+*   [**Day 3: Database Scaling**](https://www.google.com/search?q=./day-03-database-scaling.md) (Replication, Sharding, CQRS, CAP Theorem)
     
-*   **Key Terms:** 3rd Normal Form (3NF), JOIN, Foreign Key, Read-Heavy vs. Write-Heavy.
+*   [**Day 4: Caching Systems**](https://www.google.com/search?q=./day-04-caching.md) (Strategies, LRU Eviction, Redis Architecture)
+    
+*   [**Day 5: Message Queues & EDA**](https://www.google.com/search?q=./day-05-message-queues.md) (Async Design, RabbitMQ, Apache Kafka)
+    
+*   [**Day 6: Microservices Architecture**](https://www.google.com/search?q=./day-06-microservices.md) (Monolith vs. Micro, API Gateways, Service Discovery, gRPC)
+    
+*   [**Day 7: Resilience & Transactions**](https://www.google.com/search?q=./day-07-resilience-transactions.md) (Circuit Breakers, Bulkheads, Saga Pattern, 2PC)
+    
+*   [**Day 8: Deployment & Orchestration**](https://www.google.com/search?q=./day-08-deployment.md) (Containerization/Docker, Kubernetes, CI/CD)
+    
+*   [**Day 9: Observability & Security**](https://www.google.com/search?q=./day-09-observability-security.md) (Metrics/Logs/Tracing, JWTs, Rate Limiting)
+    
+*   [**Day 10: The Interview Blueprint**](https://www.google.com/search?q=./day-10-interview-blueprint.md) (The 5-Step Framework & Capacity Math)
     
 
-### Layer 2: Deep Dive
-
-*   **Key Internals:**
-    
-    *   **Normalization** saves disk space and prevents data anomalies (if a company changes its name, you update exactly 1 row). But reading a user's profile requires matching IDs across multiple tables (slow).
-        
-    *   **Denormalization** pre-computes the data. Reading a profile is one lightning-fast disk fetch (no JOINs). But if the company changes its name, you must execute a massive, slow UPDATE query on 1 million user rows.
-        
-*   **Real-World Usage:** \* Normalization: Used in OLTP (Online Transaction Processing) systems like checkout carts.
-    
-    *   Denormalization: Used heavily in NoSQL document databases and read-heavy feeds (like Twitter/Instagram timelines).
-        
-
-### Layer 3: Interview Mastery
-
-*   **Common Mistakes:** Defaulting strictly to 3rd Normal Form in a system design interview for a system that gets 100,000 reads per second and 10 writes per second.
-    
-*   **Interview Pointers:** If an interviewer asks how to speed up a Read-Heavy relational database _before_ suggesting Redis or Sharding, tell them you would use **Denormalization** or **Materialized Views** to eliminate the expensive runtime JOIN computations.
+> _"Amateurs practice until they get it right. Professionals practice until they can't get it wrong."_
